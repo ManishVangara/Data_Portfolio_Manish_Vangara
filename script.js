@@ -498,9 +498,6 @@
         // Load certifications from external file
         loadCertifications();
         
-        // Load skills from external file
-        loadSkills();
-        
         // Load experience from external file
         loadExperience();
         
