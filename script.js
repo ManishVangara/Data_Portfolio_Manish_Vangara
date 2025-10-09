@@ -40,6 +40,73 @@
             container.appendChild(card);
         });
     }
+    
+    // ============================================
+    // LOAD DEFAULT SKILLS
+    // ============================================
+    function loadDefaultSkills(container) {
+        container.innerHTML = '';
+        
+        const defaultSkills = [
+            {
+                category: 'Programming',
+                skills: ['Python', 'SQL', 'R', 'Scala']
+            },
+            {
+                category: 'Machine Learning',
+                skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'XGBoost']
+            },
+            {
+                category: 'Data Engineering',
+                skills: ['Apache Spark', 'Airflow', 'Kafka', 'Docker']
+            },
+            {
+                category: 'Cloud & Tools',
+                skills: ['AWS', 'Azure', 'Tableau', 'Git']
+            }
+        ];
+        
+        defaultSkills.forEach(category => {
+            const categoryCard = createSkillCategoryCard(category);
+            container.appendChild(categoryCard);
+        });
+    }
+    
+    // ============================================
+    // LOAD DEFAULT EXPERIENCE
+    // ============================================
+    function loadDefaultExperience(container) {
+        container.innerHTML = '';
+        
+        const defaultExperience = [
+            {
+                title: 'Senior Data Scientist',
+                company: 'Tech Company Inc.',
+                date: 'Jan 2022 - Present',
+                location: 'San Francisco, CA',
+                description: 'Leading a team of 5 data scientists in developing ML models for customer behavior prediction. Implemented automated ML pipelines that reduced model deployment time by 60%. Collaborated with product teams to integrate ML-driven features serving 2M+ users.'
+            },
+            {
+                title: 'Data Engineer',
+                company: 'Growth Startup LLC',
+                date: 'Jun 2020 - Dec 2021',
+                location: 'Remote',
+                description: 'Built and maintained scalable data infrastructure processing terabytes of data daily. Optimized data pipelines resulting in 40% cost reduction and 3x performance improvement. Designed data warehouse architecture supporting real-time analytics for business teams.'
+            },
+            {
+                title: 'Junior Data Analyst',
+                company: 'Analytics Solutions Co.',
+                date: 'Jul 2018 - May 2020',
+                location: 'New York, NY',
+                description: 'Performed statistical analysis and created visualizations to support business decisions. Developed automated reporting systems that saved 20 hours per week. Collaborated with stakeholders to define KPIs and metrics tracking business performance.'
+            }
+        ];
+        
+        defaultExperience.forEach(experience => {
+            const item = createExperienceItem(experience);
+            container.appendChild(item);
+        });
+    }
     'use strict';
     
     // ============================================
@@ -109,6 +176,72 @@
     }
     
     // ============================================
+    // LOAD SKILLS FROM EXTERNAL FILE
+    // ============================================
+    async function loadSkills() {
+        const skillsContainer = document.getElementById('skillsContainer');
+        
+        try {
+            // Try to load from skills.json
+            const response = await fetch('skills.json');
+            
+            if (!response.ok) {
+                throw new Error('Failed to load skills');
+            }
+            
+            const skillCategories = await response.json();
+            
+            // Clear loading message
+            skillsContainer.innerHTML = '';
+            
+            // Create skill category cards
+            skillCategories.forEach(category => {
+                const categoryCard = createSkillCategoryCard(category);
+                skillsContainer.appendChild(categoryCard);
+            });
+            
+        } catch (error) {
+            console.error('Error loading skills:', error);
+            
+            // Fallback to default skills if file not found
+            loadDefaultSkills(skillsContainer);
+        }
+    }
+    
+    // ============================================
+    // LOAD EXPERIENCE FROM EXTERNAL FILE
+    // ============================================
+    async function loadExperience() {
+        const experienceContainer = document.getElementById('experienceContainer');
+        
+        try {
+            // Try to load from experience.json
+            const response = await fetch('experience.json');
+            
+            if (!response.ok) {
+                throw new Error('Failed to load experience');
+            }
+            
+            const experiences = await response.json();
+            
+            // Clear loading message
+            experienceContainer.innerHTML = '';
+            
+            // Create experience timeline items
+            experiences.forEach(experience => {
+                const item = createExperienceItem(experience);
+                experienceContainer.appendChild(item);
+            });
+            
+        } catch (error) {
+            console.error('Error loading experience:', error);
+            
+            // Fallback to default experience if file not found
+            loadDefaultExperience(experienceContainer);
+        }
+    }
+    
+    // ============================================
     // CREATE PROJECT CARD
     // ============================================
     function createProjectCard(project) {
@@ -162,6 +295,44 @@
         `;
         
         return card;
+    }
+    
+    // ============================================
+    // CREATE SKILL CATEGORY CARD
+    // ============================================
+    function createSkillCategoryCard(category) {
+        const categoryCard = document.createElement('div');
+        categoryCard.className = 'skill-category';
+        
+        const title = document.createElement('h3');
+        title.textContent = escapeHtml(category.category);
+        categoryCard.appendChild(title);
+        
+        category.skills.forEach(skill => {
+            const skillItem = document.createElement('div');
+            skillItem.className = 'skill-item';
+            skillItem.textContent = escapeHtml(skill);
+            categoryCard.appendChild(skillItem);
+        });
+        
+        return categoryCard;
+    }
+    
+    // ============================================
+    // CREATE EXPERIENCE ITEM
+    // ============================================
+    function createExperienceItem(experience) {
+        const item = document.createElement('div');
+        item.className = 'timeline-item';
+        
+        item.innerHTML = `
+            <h3>${escapeHtml(experience.title)}</h3>
+            <p class="company">${escapeHtml(experience.company)}</p>
+            <p class="date">${escapeHtml(experience.date)} | ${escapeHtml(experience.location)}</p>
+            <p>${escapeHtml(experience.description)}</p>
+        `;
+        
+        return item;
     }
     
     // ============================================
@@ -326,6 +497,12 @@
         
         // Load certifications from external file
         loadCertifications();
+        
+        // Load skills from external file
+        loadSkills();
+        
+        // Load experience from external file
+        loadExperience();
         
         // Initialize theme toggle
         initThemeToggle();

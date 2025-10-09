@@ -12,6 +12,8 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -96,25 +98,8 @@
             <section id="experience" class="section">
                 <div class="content-section">
                     <h2 class="section-title">Experience</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <h3>Senior Data Scientist</h3>
-                            <p class="company">Tech Company Inc.</p>
-                            <p class="date">Jan 2022 - Present | San Francisco, CA</p>
-                            <p>Leading a team of 5 data scientists in developing ML models for customer behavior prediction. Implemented automated ML pipelines that reduced model deployment time by 60%. Collaborated with product teams to integrate ML-driven features serving 2M+ users.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h3>Data Engineer</h3>
-                            <p class="company">Growth Startup LLC</p>
-                            <p class="date">Jun 2020 - Dec 2021 | Remote</p>
-                            <p>Built and maintained scalable data infrastructure processing terabytes of data daily. Optimized data pipelines resulting in 40% cost reduction and 3x performance improvement. Designed data warehouse architecture supporting real-time analytics for business teams.</p>
-                        </div>
-                        <div class="timeline-item">
-                            <h3>Junior Data Analyst</h3>
-                            <p class="company">Analytics Solutions Co.</p>
-                            <p class="date">Jul 2018 - May 2020 | New York, NY</p>
-                            <p>Performed statistical analysis and created visualizations to support business decisions. Developed automated reporting systems that saved 20 hours per week. Collaborated with stakeholders to define KPIs and metrics tracking business performance.</p>
-                        </div>
+                    <div class="timeline" id="experienceContainer">
+                        <div class="loading">Loading experience...</div>
                     </div>
                     <div class="section-quote">"Every challenge is an opportunity to learn and grow."</div>
                 </div>
@@ -124,35 +109,8 @@
             <section id="skills" class="section">
                 <div class="content-section">
                     <h2 class="section-title">Skills</h2>
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h3>Programming</h3>
-                            <div class="skill-item">Python</div>
-                            <div class="skill-item">SQL</div>
-                            <div class="skill-item">R</div>
-                            <div class="skill-item">Scala</div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>Machine Learning</h3>
-                            <div class="skill-item">TensorFlow</div>
-                            <div class="skill-item">PyTorch</div>
-                            <div class="skill-item">Scikit-learn</div>
-                            <div class="skill-item">XGBoost</div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>Data Engineering</h3>
-                            <div class="skill-item">Apache Spark</div>
-                            <div class="skill-item">Airflow</div>
-                            <div class="skill-item">Kafka</div>
-                            <div class="skill-item">Docker</div>
-                        </div>
-                        <div class="skill-category">
-                            <h3>Cloud & Tools</h3>
-                            <div class="skill-item">AWS</div>
-                            <div class="skill-item">Azure</div>
-                            <div class="skill-item">Tableau</div>
-                            <div class="skill-item">Git</div>
-                        </div>
+                    <div class="skills-grid" id="skillsContainer">
+                        <div class="loading">Loading skills...</div>
                     </div>
                     <div class="section-quote">"Continuous learning is the key to staying ahead."</div>
                 </div>
@@ -210,8 +168,5 @@
             </section>
         </main>
     </div>
-    
-    <!-- JavaScript -->
-    <script src="script.js"></script>
 </body>
 </html>
