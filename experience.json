@@ -1,23 +1,23 @@
 [
   {
-    "title": "Senior Data Scientist",
-    "company": "Tech Company Inc.",
-    "date": "Jan 2022 - Present",
-    "location": "San Francisco, CA",
-    "description": "Leading a team of 5 data scientists in developing ML models for customer behavior prediction. Implemented automated ML pipelines that reduced model deployment time by 60%. Collaborated with product teams to integrate ML-driven features serving 2M+ users."
+    "title": "Data Scientist",
+    "company": "Halliburton",
+    "date": "Aug 2024 – Present",
+    "location": "Houston, TX",
+    "description": "When drilling operations began losing millions to unexpected downtime, I led the charge to turn raw telemetry into real-time intelligence. By deploying predictive ML models, I helped cut non-productive time by 15% and saved $2M annually. I engineered Random Forest and Gradient Boosting pipelines that pushed prediction accuracy to 92%, built Spark-based streaming alerts that notified engineers within minutes, and created a Tableau dashboard that turned hours of manual diagnosis into instant, data-driven decisions."
   },
   {
-    "title": "Data Engineer",
-    "company": "Growth Startup LLC",
-    "date": "Jun 2020 - Dec 2021",
-    "location": "Remote",
-    "description": "Built and maintained scalable data infrastructure processing terabytes of data daily. Optimized data pipelines resulting in 40% cost reduction and 3x performance improvement. Designed data warehouse architecture supporting real-time analytics for business teams."
+    "title": "Graduate Data Scientist",
+    "company": "University of Central Oklahoma",
+    "date": "Feb 2024 – Aug 2024",
+    "location": "Edmond, OK",
+    "description": "Tasked with uncovering why student engagement was dropping, I transformed 15,000+ academic records into actionable insights. Through EDA and predictive modeling using ROC and AUC metrics, I identified retention drivers that reshaped academic strategies. By automating Python–SQL pipelines and designing Power BI dashboards, I accelerated reporting by 25% and empowered leadership to make faster, evidence-based policy decisions — all while ensuring strict data governance and compliance."
   },
   {
-    "title": "Junior Data Analyst",
-    "company": "Analytics Solutions Co.",
-    "date": "Jul 2018 - May 2020",
-    "location": "New York, NY",
-    "description": "Performed statistical analysis and created visualizations to support business decisions. Developed automated reporting systems that saved 20 hours per week. Collaborated with stakeholders to define KPIs and metrics tracking business performance."
+    "title": "Data Analyst (Applied Data Science)",
+    "company": "Vertocity",
+    "date": "Sep 2020 – May 2023",
+    "location": "Hyderabad, India",
+    "description": "At Vertocity, I was challenged to improve student outcomes through data. I built XGBoost and Random Forest models that pinpointed at-risk learners, driving interventions that raised completion rates by 8%. My NLP sentiment analysis on 5,000+ reviews uncovered what students truly valued, fueling product enhancements that lifted satisfaction scores. From Tableau dashboards to cohort analytics, I turned raw data into clear stories that guided leadership and reshaped the learning experience."
   }
 ]

@@ -421,7 +421,7 @@
         if (!contactBtn) return;
         
         contactBtn.addEventListener('click', function() {
-            window.location.href = 'mailto:your.email@gmail.com';
+            window.location.href = 'mailto:manish.vangara16@gmail.com';
         });
     }
     
