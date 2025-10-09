@@ -605,7 +605,28 @@ h1, h2, h3 {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
+
+/* Large Tablets and Small Desktops (1024px and below) */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 30px 40px;
+    }
+    
+    .hero h2 {
+        font-size: 48px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+/* Tablets (768px and below) */
 @media (max-width: 768px) {
+    :root {
+        --sidebar-width: 0px;
+    }
+    
     .sidebar { 
         display: none; 
     }
@@ -616,15 +637,349 @@ h1, h2, h3 {
     }
     
     .nav-bar {
+        padding: 10px 15px;
         overflow-x: auto;
         white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    
+    .nav-bar::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    
+    .theme-toggle {
+        position: sticky;
+        right: 0;
+    }
+    
+    .hero {
+        padding: 40px 0;
     }
     
     .hero h2 { 
         font-size: 36px; 
     }
     
-    .cards-grid, .skills-grid, .hobbies-grid {
+    .hero .subtitle {
+        font-size: 22px;
+    }
+    
+    .hero .description {
+        font-size: 16px;
+    }
+    
+    .quote {
+        font-size: 18px;
+        padding-left: 20px;
+    }
+    
+    .section-quote {
+        font-size: 16px;
+        padding: 15px;
+    }
+    
+    .section-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+    
+    .cards-grid, .hobbies-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .timeline {
+        padding-left: 30px;
+    }
+    
+    .timeline-item::before {
+        left: -36px;
+    }
+}
+
+/* Mobile Landscape and Small Tablets (600px and below) */
+@media (max-width: 600px) {
+    .main-content {
+        padding: 15px;
+    }
+    
+    .nav-bar {
+        top: 15px;
+        margin-bottom: 40px;
+        padding: 8px 12px;
+        gap: 8px;
+    }
+    
+    .nav-btn {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+    
+    .hero {
+        padding: 30px 0;
+    }
+    
+    .hero h2 {
+        font-size: 28px;
+    }
+    
+    .hero .greeting {
+        font-size: 20px;
+    }
+    
+    .hero .subtitle {
+        font-size: 18px;
+    }
+    
+    .hero .description {
+        font-size: 15px;
+    }
+    
+    .quote {
+        font-size: 16px;
+        margin: 30px 0;
+    }
+    
+    .section-title {
+        font-size: 28px;
+    }
+    
+    .content-section {
+        padding: 20px 0;
+    }
+    
+    .card, .hobby-card {
+        padding: 20px;
+    }
+    
+    .card h3, .hobby-card h3 {
+        font-size: 18px;
+    }
+    
+    .timeline {
+        padding-left: 25px;
+    }
+    
+    .timeline-item {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .timeline-item::before {
+        left: -32px;
+        width: 10px;
+        height: 10px;
+    }
+    
+    .timeline-item h3 {
+        font-size: 18px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+}
+
+/* Small Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 10px;
+    }
+    
+    .nav-bar {
+        padding: 6px 10px;
+        border-radius: 30px;
+    }
+    
+    .nav-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+    
+    .theme-toggle {
+        font-size: 18px;
+        padding: 6px;
+    }
+    
+    .hero h2 {
+        font-size: 24px;
+    }
+    
+    .hero .greeting {
+        font-size: 18px;
+    }
+    
+    .hero .subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    
+    .hero .description {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    
+    .quote {
+        font-size: 15px;
+        padding-left: 15px;
+        border-left: 3px solid var(--accent);
+    }
+    
+    .section-quote {
+        font-size: 14px;
+        padding: 12px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+    
+    .section {
+        margin-bottom: 60px;
+    }
+    
+    .card, .hobby-card {
+        padding: 18px;
+    }
+    
+    .card h3, .hobby-card h3 {
+        font-size: 16px;
+    }
+    
+    .card p, .hobby-card p {
+        font-size: 14px;
+    }
+    
+    .hobby-icon {
+        font-size: 40px;
+    }
+    
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline::before {
+        width: 2px;
+    }
+    
+    .timeline-item {
+        padding: 15px;
+        margin-bottom: 25px;
+    }
+    
+    .timeline-item::before {
+        left: -28px;
+        width: 8px;
+        height: 8px;
+    }
+    
+    .timeline-item h3 {
+        font-size: 16px;
+    }
+    
+    .timeline-item .company {
+        font-size: 14px;
+    }
+    
+    .timeline-item .date {
+        font-size: 12px;
+    }
+    
+    .timeline-item p {
+        font-size: 14px;
+    }
+}
+
+/* Extra Small Mobile Devices (375px and below) */
+@media (max-width: 375px) {
+    .hero h2 {
+        font-size: 22px;
+    }
+    
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 10px;
+    }
+    
+    .btn-primary, .btn-secondary {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}
+
+/* iPad Pro and Large Tablets (Portrait: 768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+    .sidebar {
+        width: 240px;
+    }
+    
+    .main-content {
+        margin-left: 240px;
+    }
+    
+    .sidebar h1 {
+        font-size: 24px;
+    }
+    
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* iPad and Tablets (Landscape: 1024px - 1366px) */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: landscape) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hobbies-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Ensure touch-friendly targets on all devices */
+@media (hover: none) and (pointer: coarse) {
+    .nav-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .card, .hobby-card, .timeline-item {
+        cursor: default;
+    }
+    
+    .btn-primary, .btn-secondary {
+        min-height: 44px;
     }
 }
