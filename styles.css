@@ -389,11 +389,34 @@ h1, h2, h3 {
     border: 1px solid var(--border);
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
 }
 
 .card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.card.clickable {
+    cursor: pointer;
+}
+
+.card.clickable:hover {
+    border-color: var(--accent);
+}
+
+.project-link-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.card:hover .project-link-icon {
+    opacity: 1;
+    transform: scale(1.2);
 }
 
 .card h3 {

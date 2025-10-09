@@ -3,6 +3,43 @@
 // ============================================
 
 (function() {
+    // ============================================
+    // LOAD DEFAULT CERTIFICATIONS
+    // ============================================
+    function loadDefaultCertifications(container) {
+        container.innerHTML = '';
+        
+        const defaultCertifications = [
+            {
+                title: 'AWS Certified Machine Learning',
+                organization: 'Amazon Web Services',
+                description: 'Specialty certification demonstrating expertise in building, training, and deploying machine learning models on AWS platform.',
+                link: 'https://aws.amazon.com/certification/certified-machine-learning-specialty/'
+            },
+            {
+                title: 'Google Data Analytics Professional',
+                organization: 'Google',
+                description: 'Professional certificate covering data analysis, visualization, and storytelling using industry-standard tools and practices.',
+                link: 'https://www.coursera.org/professional-certificates/google-data-analytics'
+            },
+            {
+                title: 'TensorFlow Developer Certificate',
+                organization: 'TensorFlow',
+                description: 'Official certification validating skills in building and training neural networks using TensorFlow framework.',
+                link: 'https://www.tensorflow.org/certificate'
+            },
+            {
+                title: 'Apache Spark Certification',
+                organization: 'Databricks',
+                description: 'Professional certification demonstrating proficiency in big data processing and analytics using Apache Spark.'
+            }
+        ];
+        
+        defaultCertifications.forEach(certification => {
+            const card = createCertificationCard(certification);
+            container.appendChild(card);
+        });
+    }
     'use strict';
     
     // ============================================
@@ -39,16 +76,89 @@
     }
     
     // ============================================
+    // LOAD CERTIFICATIONS FROM EXTERNAL FILE
+    // ============================================
+    async function loadCertifications() {
+        const certificationsContainer = document.getElementById('certificationsContainer');
+        
+        try {
+            // Try to load from certifications.json
+            const response = await fetch('certifications.json');
+            
+            if (!response.ok) {
+                throw new Error('Failed to load certifications');
+            }
+            
+            const certifications = await response.json();
+            
+            // Clear loading message
+            certificationsContainer.innerHTML = '';
+            
+            // Create certification cards
+            certifications.forEach(certification => {
+                const card = createCertificationCard(certification);
+                certificationsContainer.appendChild(card);
+            });
+            
+        } catch (error) {
+            console.error('Error loading certifications:', error);
+            
+            // Fallback to default certifications if file not found
+            loadDefaultCertifications(certificationsContainer);
+        }
+    }
+    
+    // ============================================
     // CREATE PROJECT CARD
     // ============================================
     function createProjectCard(project) {
         const card = document.createElement('div');
         card.className = 'card';
         
+        // If project has a link, make it clickable
+        if (project.link) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                window.open(project.link, '_blank');
+            });
+            
+            // Add visual indicator for clickable cards
+            card.classList.add('clickable');
+        }
+        
         card.innerHTML = `
             <h3>${escapeHtml(project.title)}</h3>
             <p class="tech-stack">${escapeHtml(project.techStack)}</p>
             <p>${escapeHtml(project.description)}</p>
+            ${project.link ? '<span class="project-link-icon">🔗</span>' : ''}
+        `;
+        
+        return card;
+    }
+    
+    // ============================================
+    // CREATE CERTIFICATION CARD
+    // ============================================
+    function createCertificationCard(certification) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // If certification has a link, make it clickable
+        if (certification.link) {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function() {
+                window.open(certification.link, '_blank');
+            });
+            
+            // Add visual indicator for clickable cards
+            card.classList.add('clickable');
+        }
+        
+        card.innerHTML = `
+            <h3>${escapeHtml(certification.title)}</h3>
+            <p class="tech-stack">${escapeHtml(certification.organization)}</p>
+            <p>${escapeHtml(certification.description)}</p>
+            ${certification.link ? '<span class="project-link-icon">🔗</span>' : ''}
         `;
         
         return card;
@@ -64,22 +174,26 @@
             {
                 title: 'Customer Churn Prediction',
                 techStack: 'Python • Scikit-learn • XGBoost • AWS',
-                description: 'Developed a machine learning model to predict customer churn with 92% accuracy, enabling proactive retention strategies that reduced churn by 25% and saved $2M annually.'
+                description: 'Developed a machine learning model to predict customer churn with 92% accuracy, enabling proactive retention strategies that reduced churn by 25% and saved $2M annually.',
+                link: 'https://github.com/yourusername/churn-prediction'
             },
             {
                 title: 'Real-Time Analytics Dashboard',
                 techStack: 'React • D3.js • Apache Kafka • PostgreSQL',
-                description: 'Built an interactive real-time dashboard visualizing key business metrics across multiple regions, processing 50K+ events per second with sub-second latency.'
+                description: 'Built an interactive real-time dashboard visualizing key business metrics across multiple regions, processing 50K+ events per second with sub-second latency.',
+                link: 'https://github.com/yourusername/analytics-dashboard'
             },
             {
                 title: 'Scalable ETL Pipeline',
                 techStack: 'Apache Spark • Airflow • Docker • AWS S3',
-                description: 'Designed and implemented a fault-tolerant ETL pipeline processing 10M+ records daily, reducing data processing time by 70% and infrastructure costs by 40%.'
+                description: 'Designed and implemented a fault-tolerant ETL pipeline processing 10M+ records daily, reducing data processing time by 70% and infrastructure costs by 40%.',
+                link: 'https://github.com/yourusername/etl-pipeline'
             },
             {
                 title: 'NLP Sentiment Analysis',
                 techStack: 'Python • BERT • TensorFlow • FastAPI',
-                description: 'Created an NLP model analyzing customer feedback sentiment from 100K+ reviews, providing actionable insights that improved product ratings by 15%.'
+                description: 'Created an NLP model analyzing customer feedback sentiment from 100K+ reviews, providing actionable insights that improved product ratings by 15%.',
+                link: 'https://github.com/yourusername/sentiment-analysis'
             }
         ];
         
@@ -209,6 +323,9 @@
     function init() {
         // Load projects from external file
         loadProjects();
+        
+        // Load certifications from external file
+        loadCertifications();
         
         // Initialize theme toggle
         initThemeToggle();
