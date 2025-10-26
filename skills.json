@@ -9,7 +9,7 @@
   },
   {
     "category": "Machine Learning",
-    "skills": ["TensorFlow", "PyTorch", "Scikit-learn", "XGBoost"]
+    "skills": ["TensorFlow", "PyTorch", "Scikit-learn", "XGBoost", "BERT"]
   },
   {
     "category": "Data Engineering",

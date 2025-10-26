@@ -15,7 +15,6 @@
     <!-- JavaScript -->
     <script src="script.js"></script>
 </head>
-
 <body>
     <div class="container">
         <!-- ============================================
@@ -57,29 +56,109 @@
             <!-- Navigation -->
             <nav class="nav-bar">
                 <a href="#home" class="nav-btn active">Home</a>
+                <a href="#story" class="nav-btn">My Story</a>
                 <a href="#projects" class="nav-btn">Projects</a>
                 <a href="#experience" class="nav-btn">Experience</a>
+                <a href="#education" class="nav-btn">Education</a>
                 <a href="#skills" class="nav-btn">Skills</a>
                 <a href="#certifications" class="nav-btn">Certifications</a>
-                <a href="#hobbies" class="nav-btn">Hobbies & Interests</a>
+                <a href="#ask-me" class="nav-btn">Ask Me</a>
+                <a href="#lessons" class="nav-btn">Lessons</a>
+                <a href="#hobbies" class="nav-btn">Hobbies</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
             </nav>
             
             <!-- Home Section -->
             <section id="home" class="section">
-                <div class="hero">
-                    <p class="greeting">Hello there! 👋</p>
-                    <h2>I'm <span class="name">Your Name</span></h2>
-                    <p class="subtitle">Data Scientist & Data Engineer</p>
-                    <p class="description">
-                        I'm passionate about transforming complex data into actionable insights. With expertise in machine learning, statistical analysis, and data visualization, I help organizations make data-driven decisions that drive real business impact.
-                    </p>
-                    <div class="quote">"The best insights come from asking the right questions!"</div>
-                    <div class="cta-buttons">
-                        <a href="#projects" class="btn-primary">View My Work ↓</a>
-                        <button class="btn-secondary" id="contactBtn">Get In Touch</button>
+                <div class="hero-immersive">
+                    <!-- Animated Background -->
+                    <div class="hero-background">
+                        <canvas id="particleCanvas"></canvas>
+                        <div class="gradient-overlay"></div>
                     </div>
-                    <div class="scroll-indicator">↓</div>
+                    
+                    <!-- Hero Content -->
+                    <div class="hero-content">
+                        <p class="greeting animate-fade-in">Hi, I'm <span class="wave">👋</span></p>
+                        <h1 class="hero-name">
+                            <span class="name-highlight">Your Name</span>
+                        </h1>
+                        
+                        <!-- Typewriter Effect Tagline -->
+                        <div class="hero-tagline">
+                            <span class="tagline-prefix">I</span>
+                            <span id="typewriter" class="typewriter"></span>
+                            <span class="cursor">|</span>
+                        </div>
+                        
+                        <!-- Live Metrics -->
+                        <div class="hero-metrics">
+                            <div class="metric-card">
+                                <div class="metric-icon">🎯</div>
+                                <div class="metric-value" data-target="15">0</div>
+                                <div class="metric-label">Projects Shipped</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">💡</div>
+                                <div class="metric-value" data-target="92">0</div>
+                                <div class="metric-label">Avg Model Accuracy</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">☕</div>
+                                <div class="metric-value" data-target="1247">0</div>
+                                <div class="metric-label">Coffees Consumed</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Current Status -->
+                        <div class="current-status">
+                            <div class="status-item">
+                                <span class="status-icon">📍</span>
+                                <span class="status-label">Currently:</span>
+                                <span class="status-value">Building ML systems that actually matter</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-icon">💭</span>
+                                <span class="status-label">Curious about:</span>
+                                <span class="status-value">LLMs, RAG systems, and agentic AI</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-icon">🎵</span>
+                                <span class="status-label">Coding to:</span>
+                                <span class="status-value">Lo-fi beats & synthwave</span>
+                            </div>
+                        </div>
+                        
+                        <!-- CTA Buttons -->
+                        <div class="hero-cta">
+                            <a href="#projects" class="btn-primary-new">
+                                <span>Explore My Work</span>
+                                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="#story" class="btn-secondary-new">
+                                <span>Read My Story</span>
+                            </a>
+                        </div>
+                        
+                        <!-- Scroll Indicator -->
+                        <div class="scroll-indicator-new">
+                            <span class="scroll-text">Scroll to discover</span>
+                            <div class="scroll-arrow">↓</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- My Story Section -->
+            <section id="story" class="section">
+                <div class="content-section">
+                    <h2 class="section-title">My Story</h2>
+                    <div class="story-container" id="storyContainer">
+                        <div class="loading">Loading story...</div>
+                    </div>
+                    <div class="section-quote">"Every dataset has a story—I help uncover it."</div>
                 </div>
             </section>
             
@@ -105,6 +184,17 @@
                 </div>
             </section>
             
+            <!-- Education Section -->
+            <section id="education" class="section">
+                <div class="content-section">
+                    <h2 class="section-title">Education</h2>
+                    <div class="timeline" id="educationContainer">
+                        <div class="loading">Loading education...</div>
+                    </div>
+                    <div class="section-quote">"Knowledge is the foundation of innovation."</div>
+                </div>
+            </section>
+            
             <!-- Skills Section -->
             <section id="skills" class="section">
                 <div class="content-section">
@@ -127,41 +217,34 @@
                 </div>
             </section>
             
+            <!-- Ask Me About Section -->
+            <section id="ask-me" class="section">
+                <div class="content-section">
+                    <h2 class="section-title">Ask Me About</h2>
+                    <div class="ask-me-grid" id="askMeContainer">
+                        <div class="loading">Loading topics...</div>
+                    </div>
+                    <div class="section-quote">"Great conversations start with curiosity!"</div>
+                </div>
+            </section>
+            
+            <!-- Lessons Learned Section -->
+            <section id="lessons" class="section">
+                <div class="content-section">
+                    <h2 class="section-title">Lessons Learned the Hard Way</h2>
+                    <div class="lessons-container" id="lessonsContainer">
+                        <div class="loading">Loading lessons...</div>
+                    </div>
+                    <div class="section-quote">"Failure is just success in progress—if you learn from it."</div>
+                </div>
+            </section>
+            
             <!-- Hobbies Section -->
             <section id="hobbies" class="section">
                 <div class="content-section">
                     <h2 class="section-title">Hobbies & Interests</h2>
-                    <div class="hobbies-grid">
-                        <div class="hobby-card">
-                            <div class="hobby-icon">📊</div>
-                            <h3>Data Visualization</h3>
-                            <p>Creating beautiful and insightful visualizations in my free time. Love experimenting with D3.js and creative chart designs.</p>
-                        </div>
-                        <div class="hobby-card">
-                            <div class="hobby-icon">🎮</div>
-                            <h3>Gaming</h3>
-                            <p>Strategy games and puzzle solving. It's all about patterns and optimization - just like data science!</p>
-                        </div>
-                        <div class="hobby-card">
-                            <div class="hobby-icon">📚</div>
-                            <h3>Reading</h3>
-                            <p>Tech blogs, research papers, and sci-fi novels. Always learning something new about AI and data science.</p>
-                        </div>
-                        <div class="hobby-card">
-                            <div class="hobby-icon">🏃</div>
-                            <h3>Running</h3>
-                            <p>Marathon runner tracking my progress with data. Nothing beats a morning run to clear the mind!</p>
-                        </div>
-                        <div class="hobby-card">
-                            <div class="hobby-icon">🎨</div>
-                            <h3>Creative Coding</h3>
-                            <p>Building generative art with Python and exploring the intersection of art and algorithms.</p>
-                        </div>
-                        <div class="hobby-card">
-                            <div class="hobby-icon">☕</div>
-                            <h3>Coffee Enthusiast</h3>
-                            <p>Perfecting the art of brewing coffee. Data-driven approach to finding the perfect cup!</p>
-                        </div>
+                    <div class="hobbies-grid" id="hobbiesContainer">
+                        <div class="loading">Loading hobbies...</div>
                     </div>
                     <div class="section-quote">"Life is about balance - work hard, play harder!"</div>
                 </div>
