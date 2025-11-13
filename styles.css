@@ -120,10 +120,12 @@ a {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 .sidebar h1 {
-    font-family: 'Kalam', cursive;
+    font-family: 'Poppins', sans-serif;
     font-size: 28px;
+    font-weight: 700;
     margin-bottom: 8px;
     text-align: center;
+    letter-spacing: -0.5px;
 }
 .sidebar .title {
     font-size: 14px;
@@ -184,8 +186,9 @@ a {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .tagline {
-    font-family: 'Kalam', cursive;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
+    font-weight: 500;
     text-align: center;
     color: var(--text-secondary);
     font-style: italic;
@@ -388,12 +391,15 @@ a {
     padding: 40px 0;
 }
 .section-title {
+    font-family: 'Poppins', sans-serif;
     font-size: 42px;
+    font-weight: 700;
     margin-bottom: 40px;
     text-align: center;
     width: 100%;
     position: relative;
     padding-bottom: 20px;
+    letter-spacing: -0.5px;
 }
 .section-title::after {
     content: '';
@@ -416,17 +422,20 @@ a {
     margin: 0 auto;
 }
 .hero .greeting {
-    font-family: 'Kalam', cursive;
+    font-family: 'Inter', sans-serif;
     font-size: 24px;
+    font-weight: 500;
     margin-bottom: 20px;
     color: var(--text-secondary);
 }
 .hero h2 {
     font-size: 56px;
+    font-weight: 800;
     margin-bottom: 20px;
 }
 .hero h2 .name {
-    font-family: 'Kalam', cursive;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
     color: var(--accent);
 }
 .hero .subtitle {
@@ -502,10 +511,12 @@ a {
     50% { transform: rotate(0deg); }
 }
 .hero-name {
+    font-family: 'Poppins', sans-serif;
     font-size: 72px;
     font-weight: 800;
     margin-bottom: 30px;
     line-height: 1.1;
+    letter-spacing: -1px;
 }
 .name-highlight {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -952,10 +963,13 @@ a {
     transform: scale(1.2);
 }
 .card h3 {
+    font-family: 'Poppins', sans-serif;
     font-size: 22px;
+    font-weight: 600;
     margin-bottom: 12px;
     color: var(--accent);
     line-height: 1.3;
+    letter-spacing: -0.3px;
 }
 /* Ensure consistent title height */
 #certificationsContainer .card h3 {
@@ -2371,10 +2385,12 @@ a {
 }
 
 .footer-section h3 {
-    font-family: 'Kalam', cursive;
+    font-family: 'Poppins', sans-serif;
     font-size: 24px;
+    font-weight: 700;
     margin-bottom: 10px;
     color: var(--text-primary);
+    letter-spacing: -0.5px;
 }
 
 .footer-section h4 {
