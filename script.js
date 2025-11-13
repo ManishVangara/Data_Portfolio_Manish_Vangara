@@ -1236,50 +1236,107 @@
     }
     
     // ============================================
+    // UPDATE FOOTER YEAR
+    // ============================================
+    function updateFooterYear() {
+        const yearElement = document.getElementById('currentYear');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+    }
+
+    // ============================================
+    // BACK TO TOP BUTTON
+    // ============================================
+    function initBackToTop() {
+        const backToTopBtn = document.getElementById('backToTop');
+
+        if (!backToTopBtn) return;
+
+        // Show/hide button based on scroll position
+        function toggleBackToTop() {
+            if (window.pageYOffset > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Scroll to top when clicked
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Listen to scroll events with throttling
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    toggleBackToTop();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial check
+        toggleBackToTop();
+    }
+
+    // ============================================
     // INITIALIZE ALL FUNCTIONALITY
     // ============================================
     function init() {
         // Load projects from external file
         loadProjects();
-        
+
         // Load certifications from external file
         loadCertifications();
-        
+
         // Load experience from external file
         loadExperience();
-        
+
         // Load education from external file
         loadEducation();
-        
+
         // Load skills from external file
         loadSkills();
-        
+
         // Load hobbies from external file
         loadHobbies();
-        
+
         // Load my story from external file
         loadMyStory();
-        
+
         // Load ask me about from external file
         loadAskMe();
-        
+
         // Load lessons learned from external file
         loadLessons();
-        
+
         // Initialize theme toggle
         initThemeToggle();
-        
+
         // Initialize hamburger menu
         initHamburgerMenu();
-        
+
         // Initialize contact button
         initContactButton();
-        
+
         // Initialize navigation
         initNavigation();
-        
+
         // Initialize hero animations
         initHeroAnimations();
+
+        // Update footer year
+        updateFooterYear();
+
+        // Initialize back to top button
+        initBackToTop();
     }
     
     // ============================================
