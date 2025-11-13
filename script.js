@@ -923,6 +923,45 @@
     }
     
     // ============================================
+    // HAMBURGER MENU TOGGLE
+    // ============================================
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('navHamburger');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-btn');
+        
+        if (!hamburger || !navMenu) return;
+        
+        // Toggle menu
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        // Close menu when clicking nav link
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (navMenu.classList.contains('active') && 
+                !navMenu.contains(e.target) && 
+                !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // ============================================
     // CONTACT BUTTON
     // ============================================
     function initContactButton() {
@@ -1212,7 +1251,7 @@
         // Load education from external file
         loadEducation();
         
-        // Load skills from external file - THIS WAS MISSING!
+        // Load skills from external file
         loadSkills();
         
         // Load hobbies from external file
@@ -1229,6 +1268,9 @@
         
         // Initialize theme toggle
         initThemeToggle();
+        
+        // Initialize hamburger menu
+        initHamburgerMenu();
         
         // Initialize contact button
         initContactButton();
