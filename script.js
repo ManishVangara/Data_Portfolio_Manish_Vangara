@@ -1246,6 +1246,182 @@
     }
 
     // ============================================
+    // CONTACT FORM HANDLING
+    // ============================================
+    function initContactForm() {
+        const form = document.getElementById('contactForm');
+        if (!form) return;
+
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const subjectInput = document.getElementById('subject');
+        const messageInput = document.getElementById('message');
+        const submitButton = form.querySelector('.btn-submit');
+        const formStatus = document.getElementById('formStatus');
+
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Validate single field
+        function validateField(input, errorId, validationFn, errorMessage) {
+            const errorElement = document.getElementById(errorId);
+            const value = input.value.trim();
+
+            if (!validationFn(value)) {
+                input.classList.add('error');
+                errorElement.textContent = errorMessage;
+                errorElement.classList.add('visible');
+                return false;
+            } else {
+                input.classList.remove('error');
+                errorElement.classList.remove('visible');
+                return true;
+            }
+        }
+
+        // Clear field error on input
+        function clearFieldError(input, errorId) {
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.classList.remove('error');
+                    document.getElementById(errorId).classList.remove('visible');
+                }
+            });
+        }
+
+        // Set up real-time validation
+        clearFieldError(nameInput, 'nameError');
+        clearFieldError(emailInput, 'emailError');
+        clearFieldError(subjectInput, 'subjectError');
+        clearFieldError(messageInput, 'messageError');
+
+        // Validate all fields
+        function validateForm() {
+            const isNameValid = validateField(
+                nameInput,
+                'nameError',
+                (val) => val.length >= 2,
+                'Please enter your name (at least 2 characters)'
+            );
+
+            const isEmailValid = validateField(
+                emailInput,
+                'emailError',
+                (val) => emailRegex.test(val),
+                'Please enter a valid email address'
+            );
+
+            const isSubjectValid = validateField(
+                subjectInput,
+                'subjectError',
+                (val) => val.length >= 3,
+                'Please enter a subject (at least 3 characters)'
+            );
+
+            const isMessageValid = validateField(
+                messageInput,
+                'messageError',
+                (val) => val.length >= 10,
+                'Please enter a message (at least 10 characters)'
+            );
+
+            return isNameValid && isEmailValid && isSubjectValid && isMessageValid;
+        }
+
+        // Show form status
+        function showStatus(type, message) {
+            formStatus.className = 'form-status visible ' + type;
+            formStatus.textContent = message;
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                formStatus.classList.remove('visible');
+            }, 5000);
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validate form
+            if (!validateForm()) {
+                showStatus('error', 'Please fill in all fields correctly.');
+                return;
+            }
+
+            // Disable submit button
+            submitButton.disabled = true;
+            const originalText = submitButton.querySelector('.btn-text').textContent;
+            submitButton.querySelector('.btn-text').textContent = 'Sending...';
+
+            // Collect form data
+            const formData = {
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                subject: subjectInput.value.trim(),
+                message: messageInput.value.trim(),
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                // Option 1: Use Web3Forms (recommended - free and easy)
+                // Sign up at https://web3forms.com to get your access key
+                const WEB3FORMS_ACCESS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY_HERE';
+
+                // Uncomment this section and add your access key above to enable Web3Forms
+                /*
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        access_key: WEB3FORMS_ACCESS_KEY,
+                        name: formData.name,
+                        email: formData.email,
+                        subject: formData.subject,
+                        message: formData.message
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('success', 'Thank you! Your message has been sent successfully.');
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+                */
+
+                // Option 2: Fallback to mailto (temporary solution)
+                // This will open the user's email client
+                const mailtoLink = `mailto:manish.vangara16@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
+                    `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+                )}`;
+
+                window.location.href = mailtoLink;
+
+                showStatus('success', 'Opening your email client... Please send the email to complete your message.');
+
+                // Reset form after a delay
+                setTimeout(() => {
+                    form.reset();
+                }, 2000);
+
+            } catch (error) {
+                console.error('Form submission error:', error);
+                showStatus('error', 'Oops! Something went wrong. Please try again or email me directly.');
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                submitButton.querySelector('.btn-text').textContent = originalText;
+            }
+        });
+    }
+
+    // ============================================
     // BACK TO TOP BUTTON
     // ============================================
     function initBackToTop() {
@@ -1337,6 +1513,9 @@
 
         // Initialize back to top button
         initBackToTop();
+
+        // Initialize contact form
+        initContactForm();
     }
     
     // ============================================
