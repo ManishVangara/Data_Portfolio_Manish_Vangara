@@ -12,7 +12,7 @@
         
         try {
             // Try to load from projects.json
-            const response = await fetch('projects.json');
+            const response = await fetch('data/projects.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load projects');
@@ -45,7 +45,7 @@
         
         try {
             // Try to load from certifications.json
-            const response = await fetch('certifications.json');
+            const response = await fetch('data/certifications.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load certifications');
@@ -78,7 +78,7 @@
         
         try {
             // Try to load from skills.json
-            const response = await fetch('skills.json');
+            const response = await fetch('data/skills.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load skills');
@@ -111,7 +111,7 @@
         
         try {
             // Try to load from experience.json
-            const response = await fetch('experience.json');
+            const response = await fetch('data/experience.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load experience');
@@ -144,7 +144,7 @@
         
         try {
             // Try to load from education.json
-            const response = await fetch('education.json');
+            const response = await fetch('data/education.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load education');
@@ -177,7 +177,7 @@
         
         try {
             // Try to load from hobbies.json
-            const response = await fetch('hobbies.json');
+            const response = await fetch('data/hobbies.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load hobbies');
@@ -210,7 +210,7 @@
         
         try {
             // Try to load from mystory.json
-            const response = await fetch('mystory.json');
+            const response = await fetch('data/mystory.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load story');
@@ -243,7 +243,7 @@
         
         try {
             // Try to load from askme.json
-            const response = await fetch('askme.json');
+            const response = await fetch('data/askme.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load ask me topics');
@@ -276,7 +276,7 @@
         
         try {
             // Try to load from lessons.json
-            const response = await fetch('lessons.json');
+            const response = await fetch('data/lessons.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load lessons');
