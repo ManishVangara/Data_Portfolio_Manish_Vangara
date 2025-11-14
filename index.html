@@ -79,8 +79,8 @@
         <main class="main-content">
             <!-- Navigation with Hamburger Menu -->
             <nav class="nav-bar">
-                <a href="#home" class="nav-profile-link">
-                    <img src="./assets/Picture1.png" alt="Manish Vangara" class="nav-profile-avatar">
+                <a href="#home" class="nav-logo-link">
+                    <img src="./assets/Picture1.png" alt="Manish Vangara" class="nav-logo-avatar">
                 </a>
                 <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
                     <span></span>
@@ -135,11 +135,18 @@
                     
                     <!-- Hero Content -->
                     <div class="hero-content">
+                        <!-- Profile Image -->
+                        <div class="hero-profile-container">
+                            <img src="./assets/Picture1.png" alt="Manish Vangara" class="hero-profile-img">
+                        </div>
+
                         <p class="greeting animate-fade-in">Hi, I'm <span class="wave">👋</span></p>
                         <h1 class="hero-name">
                             <span class="name-highlight">Manish Vangara</span>
                         </h1>
-                        
+
+                        <p class="hero-title">Data Scientist / Data Engineer</p>
+
                         <!-- Typewriter Effect Tagline -->
                         <div class="hero-tagline">
                             <span class="tagline-prefix">I</span>
@@ -420,15 +427,6 @@
                     <p class="footer-credit">Built with passion and lots of coffee</p>
                 </div>
             </footer>
-
-            <!-- Floating Contact Button -->
-            <a href="mailto:manish.vangara16@gmail.com" class="floating-contact-btn" id="floatingContact" aria-label="Contact Me">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                </svg>
-                <span class="contact-btn-text">Contact</span>
-            </a>
         </main>
     </div>
 </body>
