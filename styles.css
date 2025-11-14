@@ -148,6 +148,7 @@ a {
     transition: background 0.3s ease;
     overflow-y: auto;
     box-shadow: 2px 0 20px rgba(0, 0, 0, 0.05);
+    z-index: 200; /* Ensure sidebar stays above hero background */
 }
 .profile-img {
     width: 140px;
