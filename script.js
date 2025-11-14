@@ -979,50 +979,112 @@
     // ============================================
     function initNavigation() {
         const navLinks = document.querySelectorAll('.nav-btn');
+        const footerLinks = document.querySelectorAll('.footer-links a');
+        const allNavLinks = [...navLinks, ...footerLinks];
         const sections = document.querySelectorAll('.section');
-        
+
         let ticking = false;
-        
+
         // Update active nav on scroll with throttling
         function updateActiveNav() {
             let currentSection = 'home';
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                
+
                 if (window.pageYOffset >= sectionTop - 200) {
                     currentSection = section.getAttribute('id');
                 }
             });
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + currentSection) {
                     link.classList.add('active');
                 }
             });
-            
+
             ticking = false;
         }
-        
+
         function requestTick() {
             if (!ticking) {
                 window.requestAnimationFrame(updateActiveNav);
                 ticking = true;
             }
         }
-        
+
         // Listen to scroll events
         window.addEventListener('scroll', requestTick);
-        
-        // Smooth scroll for navigation links
-        navLinks.forEach(link => {
+
+        // Smooth scroll for all navigation links (nav bar + footer)
+        allNavLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
+                const href = this.getAttribute('href');
+
+                // Only handle hash links (internal navigation)
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 100;
+
+                        // Smooth scroll to section
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+
+                        // Update URL hash without jumping
+                        history.pushState(null, null, href);
+
+                        // Update active state immediately
+                        navLinks.forEach(navLink => {
+                            navLink.classList.remove('active');
+                            if (navLink.getAttribute('href') === href) {
+                                navLink.classList.add('active');
+                            }
+                        });
+
+                        // Close mobile menu if open
+                        const navMenu = document.getElementById('navMenu');
+                        const hamburger = document.getElementById('navHamburger');
+                        if (navMenu && hamburger) {
+                            navMenu.classList.remove('active');
+                            hamburger.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    }
+                }
+            });
+        });
+
+        // Handle initial page load with hash
+        function handleInitialHash() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    // Small delay to ensure page is loaded
+                    setTimeout(() => {
+                        const offsetTop = targetSection.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
                 if (targetSection) {
                     const offsetTop = targetSection.offsetTop - 100;
                     window.scrollTo({
@@ -1030,10 +1092,11 @@
                         behavior: 'smooth'
                     });
                 }
-            });
+            }
         });
-        
+
         // Set initial active state
+        handleInitialHash();
         updateActiveNav();
     }
     
