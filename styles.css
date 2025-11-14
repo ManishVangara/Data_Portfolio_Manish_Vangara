@@ -2727,8 +2727,11 @@ a {
 .footer {
     background: var(--bg-secondary);
     border-top: 1px solid var(--border);
-    padding: 60px 0 30px;
+    padding: 60px 32px 30px 32px;
     margin-top: 100px;
+    /* Extend to full width like navigation bar */
+    margin-left: -60px;
+    margin-right: -60px;
 }
 
 .footer-content {
@@ -2828,10 +2831,21 @@ a {
 }
 
 /* Footer Responsive */
+@media (max-width: 1024px) {
+    .footer {
+        margin-left: -40px;
+        margin-right: -40px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .footer {
-        padding: 40px 0 20px;
+        padding: 40px 15px 20px 15px;
         margin-top: 60px;
+        margin-left: -20px;
+        margin-right: -20px;
     }
 
     .footer-content {
