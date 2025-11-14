@@ -260,14 +260,12 @@ a {
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
     position: sticky;
     top: 30px;
-    z-index: 250; /* Above sidebar (200) to span full width */
+    z-index: 100; /* Below sidebar, above content */
     backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     transition: all 0.3s ease;
-    /* Extend to span full viewport width */
-    margin-left: calc(-1 * var(--sidebar-width));
+    /* Extend to right edge only, don't cover sidebar */
     margin-right: -60px;
-    padding-left: calc(var(--sidebar-width) + 30px);
     padding-right: 30px;
 }
 .nav-bar:hover {
@@ -358,7 +356,7 @@ a {
     .nav-bar {
         padding: 10px 20px;
         gap: 6px;
-        padding-left: calc(var(--sidebar-width) + 20px);
+        margin-right: -40px;
         padding-right: 20px;
     }
 
@@ -376,7 +374,7 @@ a {
     .nav-bar {
         padding: 10px 16px;
         gap: 5px;
-        padding-left: calc(var(--sidebar-width) + 16px);
+        margin-right: -40px;
         padding-right: 16px;
     }
 
@@ -392,10 +390,9 @@ a {
 
 @media (max-width: 1024px) {
     .nav-bar {
-        /* Keep full width on tablets with sidebar */
-        margin-left: calc(-1 * var(--sidebar-width));
+        padding: 10px 20px;
+        gap: 5px;
         margin-right: -40px;
-        padding-left: calc(var(--sidebar-width) + 20px);
         padding-right: 20px;
     }
 
