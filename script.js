@@ -380,32 +380,35 @@
     }
     
     // ============================================
-    // CREATE SKILL CATEGORY CARD (BUBBLE STYLE)
+    // CREATE SKILL CATEGORY CARD (PILL STYLE)
     // ============================================
     function createSkillCategoryCard(category, categoryIndex) {
-        // Instead of creating a category card, create individual bubbles
-        const fragment = document.createDocumentFragment();
-        
-        // Determine sizes for visual hierarchy
-        const sizes = ['large', 'medium', 'medium', 'small', 'small'];
-        
-        category.skills.forEach((skill, index) => {
-            const bubble = document.createElement('div');
-            bubble.className = 'skill-bubble';
-            
-            // Add size class (cycle through sizes)
-            const sizeClass = sizes[index % sizes.length];
-            bubble.classList.add(`size-${sizeClass}`);
-            
-            // Add category-based color
-            bubble.classList.add(`category-${categoryIndex % 6}`);
-            
-            bubble.textContent = escapeHtml(skill);
-            
-            fragment.appendChild(bubble);
+        const categoryCard = document.createElement('div');
+        categoryCard.className = 'skill-category';
+
+        // Create category title
+        const title = document.createElement('div');
+        title.className = 'skill-category-title';
+        title.textContent = escapeHtml(category.category);
+
+        // Create pills container
+        const pillsContainer = document.createElement('div');
+        pillsContainer.className = 'skill-pills';
+
+        // Create individual skill pills
+        category.skills.forEach(skill => {
+            const pill = document.createElement('div');
+            pill.className = 'skill-pill';
+            pill.textContent = escapeHtml(skill);
+
+            pillsContainer.appendChild(pill);
         });
-        
-        return fragment;
+
+        // Assemble the category card
+        categoryCard.appendChild(title);
+        categoryCard.appendChild(pillsContainer);
+
+        return categoryCard;
     }
     
     // ============================================
