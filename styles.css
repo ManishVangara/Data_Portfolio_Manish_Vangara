@@ -10,7 +10,7 @@
     --accent: #3b82f6;
     --accent-hover: #2563eb;
     --border: #e2e8f0;
-    --sidebar-width: 280px;
+    --sidebar-width: 250px;
     --nav-height: 120px;
     
     /* Bubble colors for different skill categories */
@@ -137,7 +137,7 @@ a {
 .sidebar {
     width: var(--sidebar-width);
     background: var(--bg-secondary);
-    padding: 40px 30px;
+    padding: 32px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -145,10 +145,11 @@ a {
     height: 100vh;
     left: 0;
     top: 0;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
     overflow-y: auto;
-    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 0 30px rgba(0, 0, 0, 0.08);
     z-index: 200; /* Ensure sidebar stays above hero background */
+    border-right: 1px solid var(--border);
 }
 .profile-img {
     width: 140px;
@@ -251,7 +252,7 @@ a {
    ============================================ */
 .nav-bar {
     background: var(--bg-card);
-    padding: 12px 30px;
+    padding: 14px 32px;
     border-radius: 50px;
     display: flex;
     justify-content: space-between;
@@ -266,7 +267,7 @@ a {
     transition: all 0.3s ease;
     /* Extend to right edge only, don't cover sidebar */
     margin-right: -60px;
-    padding-right: 30px;
+    padding-right: 32px;
 }
 .nav-bar:hover {
     box-shadow: 0 6px 30px rgba(0,0,0,0.12);
@@ -312,7 +313,7 @@ a {
 
 .nav-menu {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
     flex: 1;
     justify-content: center;
@@ -337,6 +338,78 @@ a {
     background: var(--accent);
     color: white;
 }
+
+/* Dropdown Navigation */
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-arrow,
+.nav-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin: 4px 8px;
+}
+
+.dropdown-item:first-child {
+    margin-top: 8px;
+}
+
+.dropdown-item:last-child {
+    margin-bottom: 8px;
+}
+
+.dropdown-item:hover {
+    background: var(--bg-secondary);
+    color: var(--accent);
+    padding-left: 24px;
+}
+
 .theme-toggle {
     margin-left: 0;
     background: transparent;
@@ -437,6 +510,41 @@ a {
     .nav-btn.active {
         background: var(--accent);
         color: white;
+    }
+
+    /* Mobile Dropdown Styles */
+    .nav-dropdown {
+        width: 100%;
+    }
+
+    .dropdown-toggle {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 0;
+        margin-top: 5px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-dropdown.active .dropdown-menu,
+    .nav-dropdown:hover .dropdown-menu {
+        max-height: 500px;
+        transform: none;
+    }
+
+    .dropdown-item {
+        padding: 12px 20px 12px 40px;
+        margin: 2px 0;
     }
 
     .theme-toggle {
@@ -985,7 +1093,8 @@ a {
 }
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    border-color: rgba(59, 130, 246, 0.2);
 }
 .card.clickable {
     cursor: pointer;

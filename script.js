@@ -960,7 +960,56 @@
             }
         });
     }
-    
+
+    // ============================================
+    // DROPDOWN NAVIGATION
+    // ============================================
+    function initDropdown() {
+        const dropdown = document.querySelector('.nav-dropdown');
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        if (!dropdown || !dropdownToggle) return;
+
+        // Toggle dropdown on click (for touch devices)
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking dropdown items
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                dropdown.classList.remove('active');
+
+                // Close mobile menu if open
+                const navMenu = document.getElementById('navMenu');
+                const hamburger = document.getElementById('navHamburger');
+                if (navMenu && hamburger) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (dropdown.classList.contains('active') &&
+                !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Close dropdown on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+            }
+        });
+    }
+
     // ============================================
     // CONTACT BUTTON
     // ============================================
@@ -980,7 +1029,8 @@
     function initNavigation() {
         const navLinks = document.querySelectorAll('.nav-btn');
         const footerLinks = document.querySelectorAll('.footer-links a');
-        const allNavLinks = [...navLinks, ...footerLinks];
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        const allNavLinks = [...navLinks, ...footerLinks, ...dropdownItems];
         const sections = document.querySelectorAll('.section');
 
         let ticking = false;
@@ -1388,6 +1438,9 @@
 
         // Initialize contact button
         initContactButton();
+
+        // Initialize dropdown navigation
+        initDropdown();
 
         // Initialize navigation
         initNavigation();
