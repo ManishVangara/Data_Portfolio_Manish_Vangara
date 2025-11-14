@@ -758,7 +758,7 @@ a {
     gap: 8px;
 }
 .tagline-prefix {
-    color: var(--accent);
+    color: var(--text-primary);
 }
 .typewriter {
     color: var(--text-primary);
