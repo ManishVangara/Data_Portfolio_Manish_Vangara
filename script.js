@@ -1456,8 +1456,53 @@
 
         // Initialize back to top button
         initBackToTop();
+
+        // Initialize floating profile widget
+        initFloatingWidget();
     }
-    
+
+    // ============================================
+    // FLOATING PROFILE WIDGET
+    // ============================================
+    function initFloatingWidget() {
+        const widget = document.getElementById('floatingProfile');
+        const closeBtn = document.getElementById('closeWidget');
+
+        if (!widget || !closeBtn) return;
+
+        let isDismissed = false;
+        let hasShown = false;
+
+        // Show widget after scrolling past hero section
+        function handleScroll() {
+            if (isDismissed) return;
+
+            const scrollPosition = window.pageYOffset;
+            const heroHeight = window.innerHeight * 0.8; // Show after 80% of viewport
+
+            if (scrollPosition > heroHeight && !hasShown) {
+                widget.classList.add('visible');
+                hasShown = true;
+            } else if (scrollPosition <= heroHeight && hasShown) {
+                widget.classList.remove('visible');
+                hasShown = false;
+            }
+        }
+
+        // Close button
+        closeBtn.addEventListener('click', function() {
+            widget.classList.remove('visible');
+            widget.classList.add('dismissed');
+            isDismissed = true;
+        });
+
+        // Listen to scroll events
+        window.addEventListener('scroll', handleScroll);
+
+        // Check initial position
+        handleScroll();
+    }
+
     // ============================================
     // START APPLICATION
     // ============================================
