@@ -265,7 +265,7 @@ a {
 .nav-bar {
     background: var(--bg-card);
     padding: 16px 32px;
-    border-radius: 0 0 50px 50px;
+    border-radius: 0 0 50px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -277,9 +277,12 @@ a {
     backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     border-top: none;
+    border-left: none;
     transition: all 0.3s ease;
-    /* Extend to right edge only, don't cover sidebar */
+    /* Extend to edges, aligned with sidebar */
+    margin-left: -60px;
     margin-right: -60px;
+    padding-left: 32px;
     padding-right: 32px;
 }
 .nav-bar:hover {
@@ -440,9 +443,11 @@ a {
 /* Responsive Navigation */
 @media (max-width: 1366px) {
     .nav-bar {
-        padding: 10px 20px;
+        padding: 12px 20px;
         gap: 6px;
+        margin-left: -40px;
         margin-right: -40px;
+        padding-left: 20px;
         padding-right: 20px;
     }
 
@@ -458,9 +463,11 @@ a {
 
 @media (max-width: 1200px) {
     .nav-bar {
-        padding: 10px 16px;
+        padding: 12px 16px;
         gap: 5px;
+        margin-left: -40px;
         margin-right: -40px;
+        padding-left: 16px;
         padding-right: 16px;
     }
 
@@ -476,9 +483,11 @@ a {
 
 @media (max-width: 1024px) {
     .nav-bar {
-        padding: 10px 20px;
+        padding: 12px 20px;
         gap: 5px;
+        margin-left: -40px;
         margin-right: -40px;
+        padding-left: 20px;
         padding-right: 20px;
     }
 
@@ -1782,8 +1791,9 @@ a {
     .nav-bar {
         padding: 12px 15px;
         top: 0;
-        border-radius: 0 0 30px 30px;
+        border-radius: 0 0 30px 0;
         border-top: none;
+        border-left: none;
         /* Reset margins when sidebar is hidden */
         margin-left: -20px;
         margin-right: -20px;
