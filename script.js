@@ -12,7 +12,7 @@
         
         try {
             // Try to load from projects.json
-            const response = await fetch('projects.json');
+            const response = await fetch('data/projects.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load projects');
@@ -45,7 +45,7 @@
         
         try {
             // Try to load from certifications.json
-            const response = await fetch('certifications.json');
+            const response = await fetch('data/certifications.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load certifications');
@@ -78,7 +78,7 @@
         
         try {
             // Try to load from skills.json
-            const response = await fetch('skills.json');
+            const response = await fetch('data/skills.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load skills');
@@ -111,7 +111,7 @@
         
         try {
             // Try to load from experience.json
-            const response = await fetch('experience.json');
+            const response = await fetch('data/experience.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load experience');
@@ -144,7 +144,7 @@
         
         try {
             // Try to load from education.json
-            const response = await fetch('education.json');
+            const response = await fetch('data/education.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load education');
@@ -177,7 +177,7 @@
         
         try {
             // Try to load from hobbies.json
-            const response = await fetch('hobbies.json');
+            const response = await fetch('data/hobbies.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load hobbies');
@@ -210,7 +210,7 @@
         
         try {
             // Try to load from mystory.json
-            const response = await fetch('mystory.json');
+            const response = await fetch('data/mystory.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load story');
@@ -243,7 +243,7 @@
         
         try {
             // Try to load from askme.json
-            const response = await fetch('askme.json');
+            const response = await fetch('data/askme.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load ask me topics');
@@ -276,7 +276,7 @@
         
         try {
             // Try to load from lessons.json
-            const response = await fetch('lessons.json');
+            const response = await fetch('data/lessons.json');
             
             if (!response.ok) {
                 throw new Error('Failed to load lessons');
@@ -380,32 +380,35 @@
     }
     
     // ============================================
-    // CREATE SKILL CATEGORY CARD (BUBBLE STYLE)
+    // CREATE SKILL CATEGORY CARD (PILL STYLE)
     // ============================================
     function createSkillCategoryCard(category, categoryIndex) {
-        // Instead of creating a category card, create individual bubbles
-        const fragment = document.createDocumentFragment();
-        
-        // Determine sizes for visual hierarchy
-        const sizes = ['large', 'medium', 'medium', 'small', 'small'];
-        
-        category.skills.forEach((skill, index) => {
-            const bubble = document.createElement('div');
-            bubble.className = 'skill-bubble';
-            
-            // Add size class (cycle through sizes)
-            const sizeClass = sizes[index % sizes.length];
-            bubble.classList.add(`size-${sizeClass}`);
-            
-            // Add category-based color
-            bubble.classList.add(`category-${categoryIndex % 6}`);
-            
-            bubble.textContent = escapeHtml(skill);
-            
-            fragment.appendChild(bubble);
+        const categoryCard = document.createElement('div');
+        categoryCard.className = 'skill-category';
+
+        // Create category title
+        const title = document.createElement('div');
+        title.className = 'skill-category-title';
+        title.textContent = escapeHtml(category.category);
+
+        // Create pills container
+        const pillsContainer = document.createElement('div');
+        pillsContainer.className = 'skill-pills';
+
+        // Create individual skill pills
+        category.skills.forEach(skill => {
+            const pill = document.createElement('div');
+            pill.className = 'skill-pill';
+            pill.textContent = escapeHtml(skill);
+
+            pillsContainer.appendChild(pill);
         });
-        
-        return fragment;
+
+        // Assemble the category card
+        categoryCard.appendChild(title);
+        categoryCard.appendChild(pillsContainer);
+
+        return categoryCard;
     }
     
     // ============================================
@@ -960,7 +963,56 @@
             }
         });
     }
-    
+
+    // ============================================
+    // DROPDOWN NAVIGATION
+    // ============================================
+    function initDropdown() {
+        const dropdown = document.querySelector('.nav-dropdown');
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+        if (!dropdown || !dropdownToggle) return;
+
+        // Toggle dropdown on click (for touch devices)
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking dropdown items
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                dropdown.classList.remove('active');
+
+                // Close mobile menu if open
+                const navMenu = document.getElementById('navMenu');
+                const hamburger = document.getElementById('navHamburger');
+                if (navMenu && hamburger) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (dropdown.classList.contains('active') &&
+                !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Close dropdown on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && dropdown.classList.contains('active')) {
+                dropdown.classList.remove('active');
+            }
+        });
+    }
+
     // ============================================
     // CONTACT BUTTON
     // ============================================
@@ -979,50 +1031,113 @@
     // ============================================
     function initNavigation() {
         const navLinks = document.querySelectorAll('.nav-btn');
+        const footerLinks = document.querySelectorAll('.footer-links a');
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        const allNavLinks = [...navLinks, ...footerLinks, ...dropdownItems];
         const sections = document.querySelectorAll('.section');
-        
+
         let ticking = false;
-        
+
         // Update active nav on scroll with throttling
         function updateActiveNav() {
             let currentSection = 'home';
-            
+
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                
+
                 if (window.pageYOffset >= sectionTop - 200) {
                     currentSection = section.getAttribute('id');
                 }
             });
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + currentSection) {
                     link.classList.add('active');
                 }
             });
-            
+
             ticking = false;
         }
-        
+
         function requestTick() {
             if (!ticking) {
                 window.requestAnimationFrame(updateActiveNav);
                 ticking = true;
             }
         }
-        
+
         // Listen to scroll events
         window.addEventListener('scroll', requestTick);
-        
-        // Smooth scroll for navigation links
-        navLinks.forEach(link => {
+
+        // Smooth scroll for all navigation links (nav bar + footer)
+        allNavLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
+                const href = this.getAttribute('href');
+
+                // Only handle hash links (internal navigation)
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 100;
+
+                        // Smooth scroll to section
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+
+                        // Update URL hash without jumping
+                        history.pushState(null, null, href);
+
+                        // Update active state immediately
+                        navLinks.forEach(navLink => {
+                            navLink.classList.remove('active');
+                            if (navLink.getAttribute('href') === href) {
+                                navLink.classList.add('active');
+                            }
+                        });
+
+                        // Close mobile menu if open
+                        const navMenu = document.getElementById('navMenu');
+                        const hamburger = document.getElementById('navHamburger');
+                        if (navMenu && hamburger) {
+                            navMenu.classList.remove('active');
+                            hamburger.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    }
+                }
+            });
+        });
+
+        // Handle initial page load with hash
+        function handleInitialHash() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    // Small delay to ensure page is loaded
+                    setTimeout(() => {
+                        const offsetTop = targetSection.offsetTop - 100;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+        }
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
                 if (targetSection) {
                     const offsetTop = targetSection.offsetTop - 100;
                     window.scrollTo({
@@ -1030,10 +1145,11 @@
                         behavior: 'smooth'
                     });
                 }
-            });
+            }
         });
-        
+
         // Set initial active state
+        handleInitialHash();
         updateActiveNav();
     }
     
@@ -1236,50 +1352,110 @@
     }
     
     // ============================================
+    // UPDATE FOOTER YEAR
+    // ============================================
+    function updateFooterYear() {
+        const yearElement = document.getElementById('currentYear');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+    }
+
+    // ============================================
+    // BACK TO TOP BUTTON
+    // ============================================
+    function initBackToTop() {
+        const backToTopBtn = document.getElementById('backToTop');
+
+        if (!backToTopBtn) return;
+
+        // Show/hide button based on scroll position
+        function toggleBackToTop() {
+            if (window.pageYOffset > 500) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        }
+
+        // Scroll to top when clicked
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Listen to scroll events with throttling
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    toggleBackToTop();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Initial check
+        toggleBackToTop();
+    }
+
+    // ============================================
     // INITIALIZE ALL FUNCTIONALITY
     // ============================================
     function init() {
         // Load projects from external file
         loadProjects();
-        
+
         // Load certifications from external file
         loadCertifications();
-        
+
         // Load experience from external file
         loadExperience();
-        
+
         // Load education from external file
         loadEducation();
-        
+
         // Load skills from external file
         loadSkills();
-        
+
         // Load hobbies from external file
         loadHobbies();
-        
+
         // Load my story from external file
         loadMyStory();
-        
+
         // Load ask me about from external file
         loadAskMe();
-        
+
         // Load lessons learned from external file
         loadLessons();
-        
+
         // Initialize theme toggle
         initThemeToggle();
-        
+
         // Initialize hamburger menu
         initHamburgerMenu();
-        
+
         // Initialize contact button
         initContactButton();
-        
+
+        // Initialize dropdown navigation
+        initDropdown();
+
         // Initialize navigation
         initNavigation();
-        
+
         // Initialize hero animations
         initHeroAnimations();
+
+        // Update footer year
+        updateFooterYear();
+
+        // Initialize back to top button
+        initBackToTop();
     }
     
     // ============================================
