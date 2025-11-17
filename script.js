@@ -493,7 +493,7 @@
                 <div class="story-card-title-wrapper">
                     <h3>${escapeHtml(story.title)}</h3>
                 </div>
-                <div class="story-expand-icon">▼</div>
+                <div class="story-expand-icon">+</div>
             </div>
             <div class="story-card-content">
                 <p>${escapeHtml(story.description)}</p>

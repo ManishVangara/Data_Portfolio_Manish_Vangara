@@ -1911,7 +1911,7 @@ a {
     flex-shrink: 0;
 }
 .story-card.active .story-expand-icon {
-    transform: rotate(180deg);
+    transform: rotate(45deg);
     color: var(--accent);
 }
 .story-card-content {
