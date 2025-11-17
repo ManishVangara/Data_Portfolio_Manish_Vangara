@@ -71,33 +71,57 @@
     }
     
     // ============================================
-    // LOAD SKILLS FROM EXTERNAL FILE
+    // LOAD SKILLS FROM EXTERNAL FILE - FLOATING BUBBLES
     // ============================================
     async function loadSkills() {
+        const skillsSection = document.querySelector('#skills .content-section');
         const skillsContainer = document.getElementById('skillsContainer');
-        
+
         try {
             // Try to load from skills.json
             const response = await fetch('data/skills.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load skills');
             }
-            
+
             const skillCategories = await response.json();
-            
+
+            // Create filter buttons
+            const filterContainer = document.createElement('div');
+            filterContainer.className = 'skill-filters';
+
+            // Add "All" button
+            const allBtn = document.createElement('button');
+            allBtn.className = 'filter-btn active';
+            allBtn.textContent = 'All Skills';
+            allBtn.setAttribute('data-category', 'all');
+            filterContainer.appendChild(allBtn);
+
+            // Add category filter buttons
+            skillCategories.forEach((category, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.textContent = category.category;
+                btn.setAttribute('data-category', index);
+                filterContainer.appendChild(btn);
+            });
+
+            // Insert filter buttons before the skills container
+            skillsSection.insertBefore(filterContainer, skillsContainer);
+
             // Clear loading message
             skillsContainer.innerHTML = '';
-            
-            // Create skill bubbles (passing category index for coloring)
-            skillCategories.forEach((category, index) => {
-                const bubbles = createSkillCategoryCard(category, index);
-                skillsContainer.appendChild(bubbles);
-            });
-            
+
+            // Create floating bubbles
+            initFloatingBubbles(skillCategories, skillsContainer);
+
+            // Setup filter functionality
+            setupSkillFilters(filterContainer);
+
         } catch (error) {
             console.error('Error loading skills:', error);
-            
+
             // Fallback to default skills if file not found
             loadDefaultSkills(skillsContainer);
         }
@@ -410,7 +434,128 @@
 
         return categoryCard;
     }
-    
+
+    // ============================================
+    // FLOATING BUBBLES INITIALIZATION
+    // ============================================
+    function initFloatingBubbles(skillCategories, container) {
+        const bubbles = [];
+        const containerRect = container.getBoundingClientRect();
+
+        // Create all bubbles
+        skillCategories.forEach((category, categoryIndex) => {
+            category.skills.forEach(skillName => {
+                const bubble = document.createElement('div');
+                bubble.className = 'skill-bubble';
+                bubble.textContent = escapeHtml(skillName);
+                bubble.setAttribute('data-category', categoryIndex);
+                bubble.setAttribute('data-skill', skillName);
+
+                // Random initial position
+                const x = Math.random() * (containerRect.width - 150);
+                const y = Math.random() * (containerRect.height - 60);
+
+                // Physics properties
+                bubble.physics = {
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 1.5,  // Velocity X
+                    vy: (Math.random() - 0.5) * 1.5,  // Velocity Y
+                    element: bubble
+                };
+
+                bubble.style.left = x + 'px';
+                bubble.style.top = y + 'px';
+
+                container.appendChild(bubble);
+                bubbles.push(bubble.physics);
+            });
+        });
+
+        // Animate bubbles
+        animateBubbles(bubbles, container);
+    }
+
+    // ============================================
+    // ANIMATE FLOATING BUBBLES
+    // ============================================
+    function animateBubbles(bubbles, container) {
+        function update() {
+            const containerRect = container.getBoundingClientRect();
+            const containerWidth = containerRect.width;
+            const containerHeight = containerRect.height;
+
+            bubbles.forEach(bubble => {
+                if (bubble.element.classList.contains('hidden')) return;
+
+                // Update position
+                bubble.x += bubble.vx;
+                bubble.y += bubble.vy;
+
+                // Get bubble dimensions
+                const bubbleRect = bubble.element.getBoundingClientRect();
+                const bubbleWidth = bubbleRect.width;
+                const bubbleHeight = bubbleRect.height;
+
+                // Bounce off walls
+                if (bubble.x <= 0 || bubble.x + bubbleWidth >= containerWidth) {
+                    bubble.vx *= -1;
+                    bubble.x = Math.max(0, Math.min(bubble.x, containerWidth - bubbleWidth));
+                }
+
+                if (bubble.y <= 0 || bubble.y + bubbleHeight >= containerHeight) {
+                    bubble.vy *= -1;
+                    bubble.y = Math.max(0, Math.min(bubble.y, containerHeight - bubbleHeight));
+                }
+
+                // Apply position
+                bubble.element.style.left = bubble.x + 'px';
+                bubble.element.style.top = bubble.y + 'px';
+            });
+
+            requestAnimationFrame(update);
+        }
+
+        update();
+    }
+
+    // ============================================
+    // SETUP SKILL FILTERS
+    // ============================================
+    function setupSkillFilters(filterContainer) {
+        const buttons = filterContainer.querySelectorAll('.filter-btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+
+                // Update active button
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                // Filter bubbles
+                const bubbles = document.querySelectorAll('.skill-bubble');
+
+                if (category === 'all') {
+                    // Show all bubbles
+                    bubbles.forEach(bubble => {
+                        bubble.classList.remove('hidden');
+                    });
+                } else {
+                    // Show only selected category
+                    bubbles.forEach(bubble => {
+                        const bubbleCategory = bubble.getAttribute('data-category');
+                        if (bubbleCategory === category) {
+                            bubble.classList.remove('hidden');
+                        } else {
+                            bubble.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+        });
+    }
+
     // ============================================
     // CREATE EXPERIENCE ITEM
     // ============================================
