@@ -451,13 +451,28 @@
     function createHobbyCard(hobby) {
         const card = document.createElement('div');
         card.className = 'hobby-card';
-        
+
+        // Create image HTML if image exists
+        let imageHTML = '';
+        if (hobby.image) {
+            imageHTML = `
+                <div class="hobby-image-container">
+                    <img src="${escapeHtml(hobby.image)}" alt="${escapeHtml(hobby.title)}" class="hobby-image" loading="lazy">
+                    <div class="hobby-icon-overlay">${escapeHtml(hobby.icon)}</div>
+                </div>
+            `;
+        } else {
+            imageHTML = `<div class="hobby-icon">${escapeHtml(hobby.icon)}</div>`;
+        }
+
         card.innerHTML = `
-            <div class="hobby-icon">${escapeHtml(hobby.icon)}</div>
-            <h3>${escapeHtml(hobby.title)}</h3>
-            <p>${escapeHtml(hobby.description)}</p>
+            ${imageHTML}
+            <div class="hobby-content">
+                <h3>${escapeHtml(hobby.title)}</h3>
+                <p>${escapeHtml(hobby.description)}</p>
+            </div>
         `;
-        
+
         return card;
     }
     
@@ -1423,6 +1438,31 @@
     }
 
     // ============================================
+    // DOWNLOAD RESUME ANIMATION
+    // ============================================
+    function initDownloadResume() {
+        const downloadBtn = document.getElementById('downloadResumeBtn');
+
+        if (!downloadBtn) return;
+
+        downloadBtn.addEventListener('click', function(e) {
+            // Add downloading animation
+            this.classList.add('downloading');
+
+            // After animation completes, show checkmark
+            setTimeout(() => {
+                this.classList.remove('downloading');
+                this.classList.add('downloaded');
+
+                // Remove checkmark after 2 seconds
+                setTimeout(() => {
+                    this.classList.remove('downloaded');
+                }, 2000);
+            }, 1500);
+        });
+    }
+
+    // ============================================
     // INITIALIZE ALL FUNCTIONALITY
     // ============================================
     function init() {
@@ -1476,8 +1516,11 @@
 
         // Initialize back to top button
         initBackToTop();
+
+        // Initialize download resume animation
+        initDownloadResume();
     }
-    
+
     // ============================================
     // START APPLICATION
     // ============================================
