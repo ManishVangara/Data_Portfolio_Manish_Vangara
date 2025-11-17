@@ -1871,7 +1871,7 @@ a {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: 40px auto 0;
+    margin: 40px auto 0;
     max-width: 900px;
 }
 .story-card {
