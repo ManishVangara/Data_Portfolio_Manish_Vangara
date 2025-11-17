@@ -1301,12 +1301,11 @@ a {
     margin-top: auto;
 }
 /* ============================================
-   SKILLS - MODERN PILL DESIGN
+   SKILLS - MASONRY/PINTEREST STYLE GRID
    ============================================ */
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    column-count: 3;
+    column-gap: 40px;
     margin-top: 40px;
     padding: 20px 0;
 }
@@ -1317,6 +1316,11 @@ a {
     padding: 28px;
     border: 1px solid var(--border);
     transition: all 0.3s ease;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 40px;
+    display: inline-block;
+    width: 100%;
 }
 
 .skill-category:hover {
@@ -1567,22 +1571,27 @@ a {
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
-/* Responsive Design */
+/* Responsive Design for Masonry Layout */
 @media (max-width: 1024px) {
     .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        column-count: 2;
+        column-gap: 30px;
+    }
+
+    .skill-category {
+        margin-bottom: 30px;
     }
 }
 
 @media (max-width: 768px) {
     .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
+        column-count: 1;
+        column-gap: 0;
     }
 
     .skill-category {
         padding: 24px;
+        margin-bottom: 24px;
     }
 
     .skill-category-title {
@@ -2268,9 +2277,13 @@ a {
     }
     
     .skills-grid {
-        gap: 15px;
+        column-gap: 15px;
         padding: 30px 10px;
         min-height: 300px;
+    }
+
+    .skill-category {
+        margin-bottom: 15px;
     }
     
     .skill-bubble {
@@ -2417,12 +2430,16 @@ a {
     .card h3, .hobby-card h3 {
         font-size: 18px;
     }
-    
+
     .skills-grid {
-        gap: 12px;
+        column-gap: 12px;
         padding: 20px 5px;
     }
-    
+
+    .skill-category {
+        margin-bottom: 12px;
+    }
+
     .timeline {
         padding-left: 25px;
     }
@@ -2618,13 +2635,17 @@ a {
     .hobby-icon {
         font-size: 40px;
     }
-    
+
     .skills-grid {
-        gap: 10px;
+        column-gap: 10px;
         padding: 20px 5px;
         min-height: 250px;
     }
-    
+
+    .skill-category {
+        margin-bottom: 10px;
+    }
+
     .skill-bubble {
         padding: 10px 16px;
         font-size: 12px;
