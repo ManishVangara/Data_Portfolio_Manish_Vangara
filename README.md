@@ -87,6 +87,41 @@ npm run type-check
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run type-check` - Run TypeScript type checking
+- `npm run deploy` - Build the project (deployment happens automatically via GitHub Actions)
+
+## 🚀 Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Initial Setup
+
+1. **Enable GitHub Pages** in your repository settings:
+   - Go to repository Settings → Pages
+   - Under "Source", select "GitHub Actions"
+
+2. **Push to main branch**:
+   ```bash
+   git push origin main
+   ```
+
+3. **Automatic deployment** will trigger:
+   - GitHub Actions will build the project
+   - Deploy to GitHub Pages automatically
+   - Your site will be live at: `https://manishvangara.github.io/Data_Portfolio_Manish_Vangara/`
+
+### How It Works
+
+- Every push to the `main` branch triggers the deployment workflow
+- The workflow:
+  1. Checks out the code
+  2. Installs dependencies
+  3. Runs TypeScript compilation
+  4. Builds with Vite
+  5. Deploys the `dist/` folder to GitHub Pages
+
+### Manual Deployment
+
+You can also trigger deployment manually from the GitHub Actions tab.
 
 ## 🎨 Customization
 
