@@ -85,10 +85,10 @@
             // Clear loading message
             skillsContainer.innerHTML = '';
             
-            // Create skill bubbles (passing category index for coloring)
+            // Create skill category cards
             skillCategories.forEach((category, index) => {
-                const bubbles = createSkillCategoryCard(category, index);
-                skillsContainer.appendChild(bubbles);
+                const categoryCard = createSkillCategoryCard(category, index);
+                skillsContainer.appendChild(categoryCard);
             });
             
         } catch (error) {
