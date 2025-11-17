@@ -2,35 +2,37 @@
    CSS VARIABLES & RESET
    ============================================ */
 :root {
-    --bg-primary: #f5f5f5;
+    /* Emerald-Teal (Fresh & Bold) - Growth, data-driven, energetic */
+    --bg-primary: #f9fafb;
     --bg-secondary: #e8e8e8;
     --bg-card: #ffffff;
-    --text-primary: #2d3748;
+    --text-primary: #111827;
     --text-secondary: #718096;
-    --accent: #3b82f6;
-    --accent-hover: #2563eb;
+    --accent: #10b981;           /* Emerald */
+    --accent-hover: #059669;
+    --secondary-accent: #6366f1; /* Complementary indigo */
     --border: #e2e8f0;
     --sidebar-width: 250px;
     --nav-height: 120px;
-    
+
     /* Skill pill pastel gradient colors */
-    --skill-gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --skill-gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --skill-gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --skill-gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-    --skill-gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --skill-gradient-1: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+    --skill-gradient-2: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --skill-gradient-3: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+    --skill-gradient-4: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --skill-gradient-5: linear-gradient(135deg, #6366f1 0%, #10b981 100%);
 
     /* Pastel background colors for pills */
-    --skill-bg-1: rgba(102, 126, 234, 0.12);
-    --skill-text-1: #667eea;
-    --skill-bg-2: rgba(240, 147, 251, 0.12);
-    --skill-text-2: #f5576c;
-    --skill-bg-3: rgba(79, 172, 254, 0.12);
-    --skill-text-3: #00a8e8;
-    --skill-bg-4: rgba(67, 233, 123, 0.12);
-    --skill-text-4: #00b383;
-    --skill-bg-5: rgba(250, 112, 154, 0.12);
-    --skill-text-5: #ff6b9d;
+    --skill-bg-1: rgba(16, 185, 129, 0.12);
+    --skill-text-1: #10b981;
+    --skill-bg-2: rgba(99, 102, 241, 0.12);
+    --skill-text-2: #6366f1;
+    --skill-bg-3: rgba(20, 184, 166, 0.12);
+    --skill-text-3: #14b8a6;
+    --skill-bg-4: rgba(5, 150, 105, 0.12);
+    --skill-text-4: #059669;
+    --skill-bg-5: rgba(139, 92, 246, 0.12);
+    --skill-text-5: #8b5cf6;
 
     /* Spacing System */
     --spacing-xs: 8px;
@@ -45,12 +47,12 @@
     --color-success: #10b981;
     --color-error: #ef4444;
     --color-warning: #fb923c;
-    --color-info: #3b82f6;
+    --color-info: #6366f1;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--accent) 0%, #9333ea 100%);
-    --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-vibrant: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    --gradient-primary: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+    --gradient-secondary: linear-gradient(135deg, #10b981 0%, #6366f1 100%);
+    --gradient-vibrant: linear-gradient(135deg, #10b981 0%, #14b8a6 50%, #6366f1 100%);
 
     /* Shadows */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
